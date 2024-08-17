@@ -1,0 +1,77 @@
+https://portal.azure.com/?Microsoft_Azure_Education_correlationId=8b4b974d-ed07-45ed-8c9c-45126540bab3&Microsoft_Azure_Education_newA4E=true&Microsoft_Azure_Education_asoSubGuid=96e9daa7-087d-45d0-a9c8-fea040c40c67#home
+
+
+az configure --defaults group=Ubunto_group sql-server=ubuntu-fullstack1
+az sql db list
+az sql db list | jq '[.[] | {name: .name}]'
+az sql db show --name fullstack
+az sql db show --name fullstack | jq '{name: .name, maxSizeBytes: .maxSizeBytes,
+status: .status}'
+az sql db show-connection-string --client sqlcmd --name fullstack
+sqlcmd -S tcp:ubuntu-fullstack1.database.windows.net,1433 -d fullstack -U fullstack -P 'test@123' -N -l 30
+samir
+51.8.45.103
+2804:d41:a634:b400:ece2:cecd:b4f5:67ef
+
+CREATE TABLE Drivers (DriverID int, LastName varchar(255), FirstName varchar(255), OriginCity varchar(255));
+
+GO
+
+SELECT name FROM sys.tables;
+
+GO
+
+INSERT INTO Drivers (DriverID, LastName, FirstName, OriginCity) VALUES (754, 'Silva', 'João', 'Rio de Janeiro');
+
+GO
+
+SELECT DriverID, OriginCity FROM Drivers;
+
+GO
+
+UPDATE Drivers SET OriginCity='São Paulo' WHERE DriverID=754;
+
+GO
+SELECT DriverID, OriginCity FROM Drivers;
+
+GO
+
+DELETE FROM Drivers WHERE DriverID=745;
+
+GO
+
+SELECT COUNT(*) FROM Drivers;
+
+GO
+
+CREATE TABLE Drivers (DriverID INT PRIMARY KEY, Nome VARCHAR(100), CNH VARCHAR(20), Endereço VARCHAR(200), Contato VARCHAR(50));
+
+GO
+
+SELECT name FROM sys.tables;
+
+GO
+
+CREATE TABLE Clients (ClientID INT PRIMARY KEY, Nome VARCHAR(100), Empresa VARCHAR(100), Endereço VARCHAR(200), Contato VARCHAR(50));
+
+GO
+
+SELECT name FROM sys.tables;
+
+GO
+
+ INSERT INTO Clients (ClientID, Nome, Empresa, Endereço, Contato) VALUES (105, 'Pereira', 'Sola', 'rua to estudando' , '1111-22222');
+
+GO
+
+INSERT INTO Drivers (DriverID, Nome, CNH, Endereço, Contato) VALUES (754, 'João', '65184651465465', 'Rio de Janeiro', '22222-78952');
+
+GO
+
+CREATE TABLE Orders (OrderID INT PRIMARY KEY, ClientID INT, DriverID INT, DetalhesPedido TEXT, DataEntrega DATE, Status VARCHAR(50), FOREIGN KEY (ClientID) REFERENCES Clients(ClientID), FOREIGN KEY (DriverID) REFERENCES Drivers(DriverID));
+
+GO
+
+SELECT name FROM sys.tables;
+
+GO
